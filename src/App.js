@@ -17,7 +17,7 @@ function App() {
         <Cabecera />
 
         <Container className="p-3 text-center mt-3">
-          <h1>DreamTeam Trasnocho Extremo T_T</h1>
+          <h1>DreamTeam - Developer MarketPlace</h1>
         </Container>
         <hr />
         <Switch>

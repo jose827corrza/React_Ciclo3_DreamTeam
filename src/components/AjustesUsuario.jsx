@@ -3,13 +3,6 @@ import imgProfile from './resources/avatarDefecto.png'
 import ServiceCardEditable from './ServiceCardEditable'
 import { usuario, consultarDatabaseServiciosUsuario } from './../config/firebase';
 
-
-
-
-
-
-
-
 export const AjustesUsuario = () => {
 
     const [listaProductos, setListaProductos] = useState([])
@@ -40,7 +33,7 @@ export const AjustesUsuario = () => {
                             alt="imagenUsuario"
                             src={imgProfile}//<--Aca se puede realizar el ternario para poner la img de usuario
                             id="imgUsuario"
-                            
+
                         />
                         <figcaption>
                             {usuario.displayName}
@@ -48,19 +41,19 @@ export const AjustesUsuario = () => {
                     </figure>
                     <button className="btn btn-primary">Editar mi perfil</button>{' '}
                     <form>
-                        <div className="form " id="htmlmActualizacionDatos"> 
+                        <div className="form " id="htmlmActualizacionDatos">
                             <label htmlFor="modificarTelefono" className="htmlm-label">Telefono</label>
-                            <div className="col-sm-5"> 
+                            <div className="col-sm-5">
                                 <div className="input-group flex-nowrap">
                                     <span className="input-group-text" id="addon-wrapping">
                                         <i className="bi-telephone" role="img" aria-label="telephone"></i>
                                     </span>
                                     <input type="tel" className="htmlm-control " id="modificarTelefono"
-                                        aria-describedby="addon-wrapping"/>
+                                        aria-describedby="addon-wrapping" />
                                 </div>
                             </div>
                             <label htmlFor="modificarGithub" className="htmlm-label">Github</label>
-                            <div className="col-sm-6"> 
+                            <div className="col-sm-6">
                                 <div className="input-group flex-nowrap">
                                     <span className="input-group-text" id="addon-wrapping">
                                         <i className="bi-github" role="img" aria-label="GitHub"></i>
@@ -70,13 +63,13 @@ export const AjustesUsuario = () => {
                                 </div>
                             </div>
                             <label htmlFor="modificarUbicacion" className="htmlm-label">Ubicacion</label>
-                            <div className="col-sm-6 mb-3"> 
+                            <div className="col-sm-6 mb-3">
                                 <div className="input-group flex-nowrap">
                                     <span className="input-group-text" id="addon-wrapping">
                                         <i className="bi-geo-alt-fill" role="img" aria-label="GitHub"></i>
                                     </span>
                                     <input type="text" className="htmlm-control " id="modificarUbicacion"
-                                        aria-describedby="addon-wrapping"/>
+                                        aria-describedby="addon-wrapping" />
                                 </div>
                             </div>
                             <button className="btn btn-success me-1" id="guardarCambios">Guardar Cambios</button>
@@ -88,11 +81,11 @@ export const AjustesUsuario = () => {
                 <div className="col-md-4">
                     <form>
                         <label>Servicio actuales</label>
-                        
+
                     </form>
                     {
                         listaProductos.map((producto) => {
-                            return(
+                            return (
                                 <ServiceCardEditable key={producto.id} tituloServicio={producto.nombreServicio} descrip={producto.descripcion} />
                             )
                         })
