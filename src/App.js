@@ -13,6 +13,7 @@ import {
   Route
 } from 'react-router-dom';
 import { VistaPerfilUsuario } from './components/VistaPerfilUsuario';
+import  CrearContrato  from './components/contratos/pages/CrearContrato';
 
 
 
@@ -35,6 +36,9 @@ function App() {
           <Route path="/perfilUsuario/:id" component={VistaPerfilUsuario} />
           <Route path="/ajusteUsuario/" component={AjustesUsuario} />
           <Route path="/ListaServiciosDeUsuario" component={ListaServiciosDeUsuario} />
+          <Route path="/CrearContrato" exact>
+          <CrearContrato />
+          </Route>
           
           <Route exact path="/">
             <Carousel />

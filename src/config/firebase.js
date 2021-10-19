@@ -225,5 +225,30 @@ export const eliminarUnDeveloper = async (nombreColeccion, id) => {
     } catch (error) {
         throw new Error(error)
     }
-}//Finalizacion CRUD
+}
+
+//Consultar todos los tipos identificación
+export const consultarDatabaseTipoIdentificacion = async (nombreColeccion) =>{
+    try {
+        const respuesta = await getDocs(query(collection(database, nombreColeccion)))
+        // console.log(respuesta);
+    
+        const coleccionDatos = respuesta.docs.map((documento) => {
+           //console.log(documento);
+           //console.log(documento.data());
+          const documentoTemporal = {
+            id: documento.id,
+            ...documento.data()
+          }
+           console.log(documentoTemporal);
+          return documentoTemporal
+        })
+    
+        return coleccionDatos
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+//Finalizacion CRUD
 
