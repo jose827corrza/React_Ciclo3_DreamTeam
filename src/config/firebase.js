@@ -193,3 +193,37 @@ export const eliminarUnServicio = async (nombreColeccion, id) => {
         throw new Error(error)
     }
 }
+
+//Consultar Developers
+export const consultarDevelopers = async (nombreColeccion) => {
+    try {
+        const respuesta = await getDocs(query(collection(database, nombreColeccion)))
+        // console.log(respuesta);
+
+        const coleccionDatos = respuesta.docs.map((documento) => {
+            //console.log(documento);
+            //console.log(documento.data());
+            const documentoTemporal = {
+                id: documento.id,
+                ...documento.data()
+            }
+            console.log(documentoTemporal);
+            return documentoTemporal
+        })
+
+        return coleccionDatos
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+//Eliminar Developer
+export const eliminarUnDeveloper = async (nombreColeccion, id) => {
+    try {
+        const respuesta = await deleteDoc(doc(database, nombreColeccion, id))
+        console.log(respuesta);
+    } catch (error) {
+        throw new Error(error)
+    }
+}//Finalizacion CRUD
+
