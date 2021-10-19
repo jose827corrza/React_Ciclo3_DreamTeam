@@ -109,7 +109,7 @@ export const consultarDatabaseServicios = async (nombreColeccion) =>{
             id: documento.id,
             ...documento.data()
           }
-           console.log(documentoTemporal);
+           //console.log(documentoTemporal);
           return documentoTemporal
         })
     

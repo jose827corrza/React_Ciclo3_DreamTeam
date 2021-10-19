@@ -19,6 +19,7 @@ export const ListaServiciosDeUsuario = () => {
     const cargarServicios = async () => {
         const listaTemporal = await consultarDatabaseServicios('servicios-usuarios')
         setListaProductos(listaTemporal)
+        //console.log(listaProductos);
     }
     return (
         <div>

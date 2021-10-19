@@ -16,7 +16,7 @@ export const ServiceCardMostrar = ({ tituloServicio, descrip, id }) => {
                   <Card.Link><Button variant="danger" className="mb-1" size="sm">Borrar</Button></Card.Link> */}
                 </div >
                 <div className="col-3 mb-1 ms-1">
-                    <Link className="btn btn-primary" to={`/perfilUsuario/${id}`}>Contratar</Link>
+                    <Link className="btn btn-primary" to={`/Servicio/${id}`}>Contratar</Link>
                 </div>
             </div>
         </div>

@@ -15,13 +15,14 @@ export const VistaPerfilUsuario = () => {
     const cargarServicioPublicado = async (id) => {
         const listaTemporal = await consultarServicioParticularUsuario('servicios-usuarios', id)
         setProductoVistazo(listaTemporal)
+        console.log(productoVistazo);
         
     }
 
     useEffect(() => {
-        cargarServicioPublicado()
+        cargarServicioPublicado(id)
         
-    }, [])
+    }, [id])
 
     //-----------------------------------------------------
 
@@ -33,7 +34,7 @@ export const VistaPerfilUsuario = () => {
     //     descripcion: descrip
     // }
     useEffect(() => {
-        cargarServiciosUsuarios()
+        cargarServiciosUsuarios(listaProductos.user)
     }, [])
     //"jose96corrza@gmail.com"
     //"corredor.jose@fuac.edu.co"

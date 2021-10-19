@@ -32,9 +32,9 @@ function App() {
         </Container>
         <hr />
         <Switch>
-          <Route path="/perfilUsuario/:id" component={VistaPerfilUsuario} />
+          <Route path="/Servicio/:id" component={VistaPerfilUsuario} />
           <Route path="/ajusteUsuario/" component={AjustesUsuario} />
-          <Route path="/ListaServiciosDeUsuario" component={ListaServiciosDeUsuario} />
+          <Route path="/VerServiciosTodos" component={ListaServiciosDeUsuario} />
           
           <Route exact path="/">
             <Carousel />

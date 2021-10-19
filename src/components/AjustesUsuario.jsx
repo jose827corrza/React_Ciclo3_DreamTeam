@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import imgProfile from './resources/avatarDefecto.png'
 import ServiceCardEditable from './ServiceCardEditable'
-import { usuario, consultarDatabaseServiciosUsuario } from './../config/firebase';
+import { usuario, consultarDatabaseServiciosUsuario, guardarNuevoServicio } from './../config/firebase';
 
 
 
@@ -11,7 +11,7 @@ import { usuario, consultarDatabaseServiciosUsuario } from './../config/firebase
 
 
 export const AjustesUsuario = () => {
-
+    //Consulta los servicios del usuario actual
     const [listaProductos, setListaProductos] = useState([])
     // const producto = {
     //     estado: true,
@@ -28,7 +28,39 @@ export const AjustesUsuario = () => {
         const listaTemporal = await consultarDatabaseServiciosUsuario('servicios-usuarios', usuario.email)
         setListaProductos(listaTemporal)
     }
+    //Añadir nuevo servicio
+    const [datosServicio, setDatosServicio] = useState({
+        nombre:'',
+        descripcion:''
+    })
+    const estadoInicial = {
+        nombre:'',
+        descripcion:''
+    }
 
+    const limpiar = () => {
+        setDatosServicio({ ...estadoInicial})
+    }
+    const handleInputChange = (event) => {
+        setDatosServicio({
+            ...datosServicio,
+            [event.target.name] : event.target.value//el name de la izq es el que se le puso a los inputs abajo
+        })
+    }
+    const envioAsync = async () => {
+        await guardarNuevoServicio('servicios-usuarios', datosServicio)
+        console.log('se envia:');
+        console.log(datosServicio);
+    }
+    const enviarServicioNuevo = (event) => {
+        event.preventDefault();
+        console.log(datosServicio.nombre+' '+datosServicio.descripcion);
+        limpiar();
+        console.log(datosServicio);
+        //guardarNuevoServicio('servicios-usuarios', datosServicio)
+        console.log(datosServicio);
+        //envioAsync();
+    }
     return (
         <div className="container container-fluid">
             <div className="row">
@@ -38,7 +70,7 @@ export const AjustesUsuario = () => {
                             width={150}
                             height={150}
                             alt="imagenUsuario"
-                            src={imgProfile}//<--Aca se puede realizar el ternario para poner la img de usuario
+                            src={usuario !='' ? usuario.photoURL:imgProfile}//<--Aca se puede realizar el ternario para poner la img de usuario
                             id="imgUsuario"
                             
                         />
@@ -93,22 +125,34 @@ export const AjustesUsuario = () => {
                     {
                         listaProductos.map((producto) => {
                             return(
-                                <ServiceCardEditable key={producto.id} tituloServicio={producto.nombreServicio} descrip={producto.descripcion} />
+                                <ServiceCardEditable key={producto.id} tituloServicio={producto.nombreServicio} descrip={producto.descripcion} id={producto.id} />
                             )
                         })
                     }
                 </div>
                 <div className="col-md-4">
-                    <form>
+                    <form onSubmit={enviarServicioNuevo}>
                         <div className="mb-3" id="anadirSercicio">
                             <label htmlFor="nuevoSercicio" className="form-label">Añadir servicio nuevo</label>
-                            <input type="text" placeholder="Ingresa nuevo servicio" id="nuevoServicio" className="form-control"></input>
+                            <input 
+                            type="text" 
+                            placeholder="Ingresa nuevo servicio" 
+                            id="nuevoServicio" className="form-control"
+                            name="nombre"
+                            onChange={handleInputChange}
+                            ></input>
                             <div className="form-text">Es el servicio como desarrollador que quieres prestar</div>
                             <label htmlFor="descripcionServicio">Descripcion servicio nuevo</label>
-                            <input className="form-control" type="text" placeholder="Ingresa una descripcion de tu nuevo servicio" style={{ height: '100px' }} id="descripcionServicio"></input>
+                            <input 
+                            className="form-control" 
+                            type="text" placeholder="Ingresa una descripcion de tu nuevo servicio" 
+                            style={{ height: '100px' }} 
+                            id="descripcionServicio"
+                            name="descripcion"
+                            onChange={handleInputChange}></input>
                             <div className="form-text">Es el servicio como desarrollador que quieres prestar</div>
                         </div>
-                        <button className="btn btn-outline-success">Añadir</button>
+                        <button className="btn btn-outline-success" type="submit">Añadir</button>
                     </form>
 
                 </div>
