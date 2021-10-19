@@ -28,7 +28,7 @@ function App() {
             component={ListaServiciosDeUsuario}
           />
           <Route
-            path="/gestiondesarrolladores"
+            path="/GestionDesarrolladores"
             component={GestionDesarrolladores}
           />
 

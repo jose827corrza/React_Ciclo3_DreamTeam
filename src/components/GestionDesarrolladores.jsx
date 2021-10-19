@@ -1,42 +1,63 @@
 import { Container, Table, Button } from "react-bootstrap";
-import { usuario, consultarDatabaseServiciosUsuario } from './../config/firebase';
-import React from "react";
+import { consultarDatabaseServicios } from '../config/firebase';
+import React, { useEffect, useState } from 'react'
+import ListGroup from 'react-bootstrap/ListGroup';
 import "./Gestion.css";
 
-const desarrolladores = [
-    {
-        uid: 1,
-        nombre: "Buzz Lightyear",
-        descripcion: "To infinity, and beyond!",
-        github: 1000,
-        imagen: "https://images.unsplash.com/photo-1581557991964-125469da3b8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=833&q=80",
-        telefono: "Toy Story",
-        email: "aass@gmail.com",
-        servicios: true,
-    },
-    {
-        uid: 2,
-        nombre: "Sheriff Woody",
-        descripcion: "There's a snake in my boot!",
-        github: 2000,
-        imagen: "https://images.unsplash.com/flagged/photo-1581557991965-4cdc00aa57e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=892&q=80",
-        telefono: "Toy Story",
-        email: "aass@gmail.com",
-        servicios: true,
-    },
-    {
-        uid: 3,
-        nombre: "Sonic the Hedgehog",
-        descripcion: "Gotta go fast!",
-        github: 500,
-        imagen: "https://images.unsplash.com/photo-1576416308177-d3443d662fd4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=793&q=80",
-        telefono: "Videogames",
-        email: "aass@gmail.com",
-        servicios: true,
-    },
-];
-
 export const GestionDesarrolladores = () => {
+
+    const [listaDesarrolladores, setListaDesarrolladores] = useState([])
+    // const producto = {
+    //     estado: true,
+    //     nombreServicio: nServicio,
+    //     user: usuarioActual.email,
+    //     descripcion: descrip
+    // }
+    useEffect(() => {
+        cargarDesarrolladores()
+    }, [])
+
+    const cargarDesarrolladores = async () => {
+        const listaTemporal = await consultarDatabaseServicios('datos-usuarios')
+        setListaDesarrolladores(listaTemporal)
+    }
+
+
+
+    // const desarrolladores = [
+    //     {
+    //         uid: 1,
+    //         nombre: "José Daniel Corredor Zambrano",
+    //         descripcion: "Soy Ing. Electromecánico mis principales gustos son automatización y la implementación de IoT, soy de Bogotá.",
+    //         github: "https://github.com/jose827corrza",
+    //         imagen: "https://avatars.githubusercontent.com/u/84426110?v=4",
+    //         telefono: "3059044855",
+    //         email: "jose96corrza@gmail.com",
+    //         servicios: ["Python", "VueJS", "MySQL"],
+    //     },
+    //     {
+    //         uid: 2,
+    //         nombre: "Nelson Felipe Barco Benavides",
+    //         descripcion: "Soy Ing de Petroleos e Ing de sistemas e informatica egresado de la Unal Med. Mis intereses son el desarrollo web; la ingenieria, ciencia y analitica de datos; IoT y Blockchain. Soy de Medellín",
+    //         github: "https://github.com/nfbarcob",
+    //         imagen: "https://avatars.githubusercontent.com/u/31191628?v=4",
+    //         telefono: "3185211102",
+    //         email: "nfbarcob@gmail.com",
+    //         servicios: ["Python", "Java", "Angular"],
+    //     },
+    //     {
+    //         uid: 3,
+    //         nombre: "Rodrigo Fernando Obregón Romero",
+    //         descripcion: "Soy Ingeniero Electronico egresado de la universidad del Valle. Mi enfoque profesional es la Automatizacion Industrial. Nací en Guapi Cauca",
+    //         github: "https://github.com/rodrigombia",
+    //         imagen: "https://avatars.githubusercontent.com/u/45669656?v=4",
+    //         telefono: "Videogames",
+    //         email: "rodrigo.obregon.romero@gmail.com",
+    //         servicios: ["Python", "MongoDB", "C++"],
+    //     },
+    // ];
+
+
     return (
         <React.Fragment>
             <h1 className="text-center mt-5 mb-5">Gestion de Desarrolladores</h1>
@@ -56,20 +77,20 @@ export const GestionDesarrolladores = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {desarrolladores.map((desarrollador) => {
+                        {listaDesarrolladores.map((desarrollador) => {
                             return (
-                                <tr key={desarrollador.uid}>
-                                    <td>{desarrollador.nombre}</td>
-                                    <td>{desarrollador.descripcion}</td>
-                                    <td><img
+                                <tr key={desarrollador.id}>
+                                    {/* <td>{desarrollador.nombre}</td>
+                                    <td>{desarrollador.descripcion}</td> */}
+                                    {/* <td><img
                                         className="t-img"
                                         src={desarrollador.imagen}
                                         alt={desarrollador.nombre}
-                                    /></td>
-                                    <td>{desarrollador.github}</td>
-                                    <td>{desarrollador.email}</td>
-                                    <td>{desarrollador.telefono}</td>
-                                    <td>{desarrollador.servicios}</td>
+                                    /></td> */}
+                                    <td>{desarrollador.GitHub}</td>
+                                    <td>{desarrollador.user}</td>
+                                    <td>{desarrollador.Telefono}</td>
+                                    {/* <td><ListGroup>{desarrollador.servicios.map((servicio) => { return (<ListGroup.Item>{servicio}</ListGroup.Item>) })}</ListGroup></td> */}
                                     <td>
                                         <Button
                                             variant="danger"
