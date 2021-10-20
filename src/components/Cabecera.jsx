@@ -35,6 +35,9 @@ export const Cabecera = () => {
                       <li className="nav-item">
                         <Link className="nav-link" to="/VerServiciosTodos">Ver Servicios</Link>
                       </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/CrearContrato">Crear contrato</Link>
+                      </li>
                       <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Usuario
