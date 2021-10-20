@@ -1,6 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { usuario, consultarDatabaseTipoIdentificacion } from './../../../config/firebase';
+import { usuario, consultarDatabaseTipoIdentificacion, consultarDatabaseServiciosUsuario } from './../../../config/firebase';
 import React, { useState, useEffect } from "react";
 
 import { Container, Row, Col, Alert } from "react-bootstrap";
@@ -12,14 +12,15 @@ const ContratotForm = ({ handleChange, handleClick, categorias, formValue }) => 
   const [tipoIdentificacion, setTipoIdentificacion] = useState([]);
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
+  const [serviciosUsuario, setServiciosUsuario] = useState([]);
 
   useEffect(() => {
-    consultaTipoIdentificacion()
-    console.log('Usuario')
-    console.log(usuario)
+    
     formValue.id_desarrollador= usuario.uid
     formValue.nombre_desarrollador = usuario.displayName
     formValue.email_desarrollador = usuario.email
+    consultaTipoIdentificacion()
+    cargarServiciosUsuario()
 
 }, [])
 
@@ -27,6 +28,22 @@ const ContratotForm = ({ handleChange, handleClick, categorias, formValue }) => 
     const listaTemporal = await consultarDatabaseTipoIdentificacion('tipo-identificacion')
     setTipoIdentificacion(listaTemporal)
 }
+
+const cargarServiciosUsuario = async () => {
+  console.log("Servicios usuario ")
+  
+  const listaTemporal = await consultarDatabaseServiciosUsuario('servicios-usuarios', usuario.email)
+  console.log(listaTemporal)
+
+  if (!!listaTemporal){
+    setServiciosUsuario(listaTemporal)
+  }else{
+    setServiciosUsuario([])
+  }
+  
+ 
+}
+
   return (
     <Form>
       <Form.Group className="mb-3">
@@ -104,26 +121,33 @@ const ContratotForm = ({ handleChange, handleClick, categorias, formValue }) => 
         <Form.Label>Descripción proyecto</Form.Label>
         <Form.Control
           as="textarea"
-          name="description"
+          name="descripcion_proyecto"
           style={{ height: "50px" }}
           onChange={handleChange}
-          value={formValue.description}
+          value={formValue.descripcion_proyecto}
         />
         <Form.Label>Servicios contratados</Form.Label>
         <Form.Control
-          as="textarea"
-          name="servicios"
-          style={{ height: "50px" }}
+          as="select"
+          name="servicios_contratados"
           onChange={handleChange}
-          value={formValue.servicios}
-        />
+          value={formValue.servicios_contratados}
+          multiple
+        >
+          {
+          serviciosUsuario.map((servicio) => (
+            <option key={servicio._id} value={servicio._id}>
+              {servicio.nombreServicio}
+            </option>
+          ))}
+        </Form.Control>
         <Form.Label>Fecha inicio</Form.Label>
         <Form.Control
           type="date"
-          name="fecha_inicio"
+          name="fecha_inicio_proyecto"
           style={{ height: "50px" }}
           onChange={handleChange}
-          value={formValue.fecha_inicio}
+          value={formValue.fecha_inicio_proyecto}
         />
         <Form.Label>Precio acordado</Form.Label>
         <Form.Control
