@@ -1,4 +1,4 @@
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 
 //import imgagen from './resources/avatarDefecto.png'
 
@@ -24,13 +24,11 @@ import ECServicios from './components/ECServicios';
 function App() {
   return (
     <div className="App">
-
       <Router>
-
         <Cabecera />
 
         <Container className="p-3 text-center mt-3">
-          <h1>DreamTeam Trasnocho Extremo T_T</h1>
+          <h1>DreamTeam - Developer MarketPlace</h1>
         </Container>
         <hr />
         <Switch>
@@ -47,7 +45,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-
     </div>
   );
 }

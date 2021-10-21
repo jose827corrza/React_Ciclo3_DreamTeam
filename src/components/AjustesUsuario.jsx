@@ -4,13 +4,6 @@ import ServiceCardEditable from './ServiceCardEditable'
 import { Link } from 'react-router-dom';
 import { usuario, consultarDatabaseServiciosUsuario, editarUnServicio, eliminarUnServicio } from './../config/firebase';
 
-
-
-
-
-
-
-
 export const AjustesUsuario = () => {
     //Consulta los servicios del usuario actual
     const [listaProductos, setListaProductos] = useState([])
@@ -90,9 +83,14 @@ export const AjustesUsuario = () => {
                                     <span className="input-group-text" id="addon-wrapping">
                                         <i className="bi-telephone" role="img" aria-label="telephone"></i>
                                     </span>
+<<<<<<< HEAD
                                     <input type="tel" className="htmlm-control " onChange={(event) => setTelefono(event.target.value)}
                                         value={telefono}
                                     />
+=======
+                                    <input type="tel" className="htmlm-control " id="modificarTelefono"
+                                        aria-describedby="addon-wrapping" />
+>>>>>>> daniel
                                 </div>
                             </div>
                             <label htmlFor="modificarGithub" className="htmlm-label">Github</label>
@@ -112,9 +110,14 @@ export const AjustesUsuario = () => {
                                     <span className="input-group-text" id="addon-wrapping">
                                         <i className="bi-geo-alt-fill" role="img" aria-label="GitHub"></i>
                                     </span>
+<<<<<<< HEAD
                                     <input type="text" className="htmlm-control " onChange={(event) => setUbicacion(event.target.value)}
                                         value={ubicacion}
                                     />
+=======
+                                    <input type="text" className="htmlm-control " id="modificarUbicacion"
+                                        aria-describedby="addon-wrapping" />
+>>>>>>> daniel
                                 </div>
                             </div>
                             <button className="btn btn-success me-1" onClick={guardarDatosUsuario}>Guardar Cambios</button>
@@ -132,7 +135,11 @@ export const AjustesUsuario = () => {
                     {
                         listaProductos.map((producto) => {
                             return (
+<<<<<<< HEAD
                                 <ServiceCardEditable key={producto.id} tituloServicio={producto.nombreServicio} descrip={producto.descripcion} id={producto.id} />
+=======
+                                <ServiceCardEditable key={producto.id} tituloServicio={producto.nombreServicio} descrip={producto.descripcion} />
+>>>>>>> daniel
                             )
                         })
                     } */}
