@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-export const ServiceCardMostrar = ({ tituloServicio, descrip, id }) => {
+export const ServiceCardMostrar = ({ tituloServicio, descrip, id, usuario }) => {
     return (
         <div className="col-md-4 my-3">
             <div className="card ">
@@ -11,7 +11,9 @@ export const ServiceCardMostrar = ({ tituloServicio, descrip, id }) => {
                     {
                         descrip
                     }
-
+                    {
+                        usuario
+                    }
                     {/* <Card.Link><Button variant="warning" className="mb-1" size="sm">Modificar</Button></Card.Link>
                   <Card.Link><Button variant="danger" className="mb-1" size="sm">Borrar</Button></Card.Link> */}
                 </div >

@@ -24,7 +24,7 @@ const borrar = async () => {
                     <Link className="btn btn-danger" to={'/ajusteusuario'} onClick={borrar}>Eliminar</Link>
                 </div>
                 <div className="col-3 mb-1 ms-1">
-                    <Link className="btn btn-warning" to={'/'}>Editar</Link>
+                    <Link className="btn btn-warning" to={`/ajusteUsuario/${id}`}>Editar</Link>
                 </div>
             </div >
             

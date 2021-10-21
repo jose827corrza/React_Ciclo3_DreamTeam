@@ -31,7 +31,7 @@ export const ListaServiciosDeUsuario = () => {
                         return (
 
                             
-                                <ServiceCardMostrar key={producto.id} tituloServicio={producto.nombreServicio} descrip={producto.descripcion} id={producto.id}/>
+                                <ServiceCardMostrar key={producto.id} tituloServicio={producto.nombreServicio} usuario={producto.user} descrip={producto.descripcion} id={producto.id}/>
                             
 
                         )

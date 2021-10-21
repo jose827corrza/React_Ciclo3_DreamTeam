@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 
 export const VistaPerfilUsuario = () => {
     const { id } = useParams();
-    console.log(useParams());
+    //console.log(useParams());
     console.log(id);
 
     const [productoVistazo, setProductoVistazo] = useState([])
+    const [listaProductos, setListaProductos] = useState([])
 
-    const cargarServicioPublicado = async (id) => {
-        const listaTemporal = await consultarServicioParticularUsuario('servicios-usuarios', id)
+    const cargarServicioPublicado = async (idServicio) => {
+        const listaTemporal = await consultarServicioParticularUsuario('servicios-usuarios', idServicio)
         setProductoVistazo(listaTemporal)
         console.log(productoVistazo);
         
@@ -21,21 +22,20 @@ export const VistaPerfilUsuario = () => {
 
     useEffect(() => {
         cargarServicioPublicado(id)
+        cargarServiciosUsuarios(listaProductos.user)
         
     }, [id])
 
     //-----------------------------------------------------
 
-    const [listaProductos, setListaProductos] = useState([])
+    
     // const producto = {
     //     estado: true,
     //     nombreServicio: nServicio,
     //     user: usuarioActual.email,
     //     descripcion: descrip
     // }
-    useEffect(() => {
-        cargarServiciosUsuarios(listaProductos.user)
-    }, [])
+    
     //"jose96corrza@gmail.com"
     //"corredor.jose@fuac.edu.co"
     const cargarServiciosUsuarios = async () => {
@@ -81,7 +81,7 @@ export const VistaPerfilUsuario = () => {
                                         <td>{producto.nombreServicio}</td>
                                         <td>
                                             <Link className="btn btn-primary btn-sm"
-                                                to={`/perfilUsuario/${producto.id}`} onClick={cargarServicioPublicado}>
+                                                to={`/perfilUsuario/${producto.id}`} onClick={cargarServiciosUsuarios} >
                                                 Contactar
                                             </Link>
                                         </td>

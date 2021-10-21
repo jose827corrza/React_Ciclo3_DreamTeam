@@ -1,6 +1,6 @@
 import React from 'react'
-import gafas from './resources/glasses.jpg';
-import man from './resources/man.jpg';
+import pensar from './resources/pensar.jpg';
+import programacion from './resources/programacion.jpg';
 import woman from './resources/woman.jpg';
 import  './Styles.css'
 
@@ -14,21 +14,21 @@ export const Carousel = () => {
             </div>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <img src={gafas} className="d-block w-100" alt="primera"/>
+                    <img src={pensar} className="d-block w-100" alt="Soluciones"/>
                     <div className ="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
+                    <h5>Buscas talento</h5>
+                    <p>Busca todos los servicios que ofrecen nuestros usuarios!</p>
                     </div>
                 </div>
                 <div className="carousel-item">
-                    <img src={woman} className="d-block w-100" alt="segunda"/>
+                    <img src={programacion} className="d-block w-100" alt="segunda"/>
                     <div className ="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
                     <p>Some representative placeholder content for the second slide.</p>
                     </div>
                 </div>
                 <div className="carousel-item">
-                    <img src={man} className="d-block w-100" alt="tercera"/>
+                    <img src={woman} className="d-block w-100" alt="tercera"/>
                     <div className ="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Some representative placeholder content for the third slide.</p>

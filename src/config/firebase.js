@@ -168,7 +168,7 @@ export const consultarServicioParticularUsuario = async (nombreColeccion, idServ
 //Anadir servicio
 export const guardarNuevoServicio = async (nombreColeccion, data) => {
     try {
-        const respuesta = await addDoc(collection(database, nombreColeccion, data))
+        const respuesta = await addDoc(collection(database, nombreColeccion), data)
         console.log(respuesta);
     } catch (error) {
         throw new Error(error)

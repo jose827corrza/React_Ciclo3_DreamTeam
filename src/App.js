@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import { VistaPerfilUsuario } from './components/VistaPerfilUsuario';
 import  CrearContrato  from './components/contratos/pages/CrearContrato';
+import ECServicios from './components/ECServicios';
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <hr />
         <Switch>
           <Route path="/Servicio/:id" component={VistaPerfilUsuario} />
+          <Route path="/ajusteUsuario/:id" component={ECServicios} />
           <Route path="/ajusteUsuario/" component={AjustesUsuario} />
           <Route path="/ListaServiciosDeUsuario" component={ListaServiciosDeUsuario} />
           <Route path="/CrearContrato" exact>
