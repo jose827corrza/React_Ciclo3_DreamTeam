@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { usuario, consultarServicioParticularUsuario, guardarNuevoServicio, editarUnServicio } from './../config/firebase';
+import { usuario, consultarServicioParticularUsuario, guardarNuevoServicio, editarUnServicio, datosUsuario } from './../config/firebase';
 
 const ECServicios = () => {
     const { id } = useParams()
@@ -8,15 +8,25 @@ const ECServicios = () => {
     const history = useHistory()
     const [servicioNuevo, setServicioNuevo] = useState('')
     const [descripcionNuevo, setDescripcionNuevo] = useState('')
-
+    
     useEffect(() => {
-        if(id !== 'create'){
-            consultarServicio(id)
+        const credencialesUsuario = datosUsuario()
+        if (credencialesUsuario) {
+            console.log('Existe un usuario');
+            if (id !== 'create') {
+                consultarServicio(id)
+            }
+
+            setServicioNuevo('')
+            setDescripcionNuevo('')
+
+        } else {
+            console.log('No Existe un usuario');
+            history.push('/')
         }
-        
-        setServicioNuevo('')
-        setDescripcionNuevo('')
-    }, [id])
+
+    }, [history, id])
+
 
     //Consultar info servicio si es editarUnServicio
     const consultarServicio = async (idServicio) => {

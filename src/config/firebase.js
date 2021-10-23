@@ -39,9 +39,24 @@ const firebaseConfig = {
 //Inicializacion
 initializeApp(firebaseConfig);
 const database = getFirestore();
-const auth = getAuth();
+export const auth = getAuth();
 const provider = new GoogleAuthProvider();
 export let usuario;
+export let listaAdmins = ['jose96corrza@gmail.com', 'daniel.montoyalondono@gmail.com'];
+
+//Datos usuario
+export const datosUsuario = () => {
+  const user = auth.currentUser
+  //console.log(user.email);
+
+  if (user) {
+    console.log(user);
+    return user
+  } else {
+    console.log('datos usuario:', user);
+    return undefined
+  }
+}
 
 //Login con Google
 export const loginConGoogle = async () => {
@@ -99,8 +114,8 @@ export const loginUsuario = async (email, password) => {
 export const logOutUsuario = async () => {
   try {
     const respuesta = await signOut(auth);
-    //console.log(respuesta);
-    console.log("Me sali...!");
+    console.log('Me sali ...' +respuesta);
+    //console.log("Me sali...!");
   } catch (e) {
     throw new Error(e);
   }
@@ -120,7 +135,6 @@ onAuthStateChanged(auth, (user) => {
 //Database
 
 //Consultar todos los servicios
-<<<<<<< HEAD
 export const consultarDatabaseServicios = async (nombreColeccion) =>{
     try {
         const respuesta = await getDocs(query(collection(database, nombreColeccion)))
@@ -142,31 +156,6 @@ export const consultarDatabaseServicios = async (nombreColeccion) =>{
         throw new Error(error)
     }
 }
-=======
-export const consultarDatabaseServicios = async (nombreColeccion) => {
-  try {
-    const respuesta = await getDocs(
-      query(collection(database, nombreColeccion))
-    );
-    // console.log(respuesta);
-
-    const coleccionDatos = respuesta.docs.map((documento) => {
-      //console.log(documento);
-      //console.log(documento.data());
-      const documentoTemporal = {
-        id: documento.id,
-        ...documento.data(),
-      };
-      console.log(documentoTemporal);
-      return documentoTemporal;
-    });
-
-    return coleccionDatos;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
->>>>>>> daniel
 
 //Consultar todos los servicios del usuario
 export const consultarDatabaseServiciosUsuario = async (
@@ -219,7 +208,6 @@ export const consultarServicioParticularUsuario = async (
 
 //Anadir servicio
 export const guardarNuevoServicio = async (nombreColeccion, data) => {
-<<<<<<< HEAD
     try {
         const respuesta = await addDoc(collection(database, nombreColeccion), data)
         console.log(respuesta);
@@ -227,15 +215,6 @@ export const guardarNuevoServicio = async (nombreColeccion, data) => {
         throw new Error(error)
     }
 }
-=======
-  try {
-    const respuesta = await addDoc(collection(database, nombreColeccion, data));
-    console.log(respuesta);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
->>>>>>> daniel
 
 //Editar un Servicio
 export const editarUnServicio = async (nombreColeccion, id, data) => {
@@ -248,7 +227,6 @@ export const editarUnServicio = async (nombreColeccion, id, data) => {
 
 //Eliminacion Servicio
 export const eliminarUnServicio = async (nombreColeccion, id) => {
-<<<<<<< HEAD
     try {
         const respuesta = await deleteDoc(doc(database, nombreColeccion, id))
         console.log(respuesta);
@@ -315,12 +293,3 @@ export const consultarDatabaseTipoIdentificacion = async (nombreColeccion) =>{
 
 //Finalizacion CRUD
 
-=======
-  try {
-    const respuesta = await deleteDoc(doc(database, nombreColeccion, id));
-    console.log(respuesta);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
->>>>>>> daniel

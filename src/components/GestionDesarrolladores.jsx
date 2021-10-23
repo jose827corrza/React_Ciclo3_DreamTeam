@@ -1,10 +1,16 @@
-import { Container, Table, Button } from "react-bootstrap";
-import { consultarDatabaseServicios } from '../config/firebase';
+import { Container, Table } from "react-bootstrap";
+import { consultarDatabaseServicios, eliminarUnDeveloper, editarUnServicio, datosUsuario, listaAdmins } from '../config/firebase';
 import React, { useEffect, useState } from 'react'
 import ListGroup from 'react-bootstrap/ListGroup';
 import "./Gestion.css";
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+
 
 export const GestionDesarrolladores = () => {
+
+    
+
 
     const [listaDesarrolladores, setListaDesarrolladores] = useState([])
     // const producto = {
@@ -13,14 +19,27 @@ export const GestionDesarrolladores = () => {
     //     user: usuarioActual.email,
     //     descripcion: descrip
     // }
+    const history = useHistory();
     useEffect(() => {
-        cargarDesarrolladores()
-    }, [])
+        const credencialesUsuario = datosUsuario()
+        if (credencialesUsuario) {
+          console.log('Existe un usuario');
+          if(listaAdmins.includes(credencialesUsuario.email)){
+            cargarDesarrolladores()
+          }
+          
+        } else {
+          console.log('No Existe un usuario');
+          history.push('/')
+        }
+        
+    }, [history])
 
     const cargarDesarrolladores = async () => {
         const listaTemporal = await consultarDatabaseServicios('lista-desarrolladores')
         setListaDesarrolladores(listaTemporal)
     }
+
 
     return (
         <React.Fragment>
@@ -37,11 +56,13 @@ export const GestionDesarrolladores = () => {
                             <th>E-mail</th>
                             <th>Teléfono</th>
                             <th>Servicios</th>
+                            <th>Activo</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         {listaDesarrolladores.map((desarrollador) => {
+                            
                             return (
                                 <tr key={desarrollador.id}>
                                     <td>{desarrollador.nombre}</td>
@@ -55,10 +76,15 @@ export const GestionDesarrolladores = () => {
                                     <td>{desarrollador.email}</td>
                                     <td>{desarrollador.telefono}</td>
                                     <td><ListGroup>{desarrollador.servicios.map((servicio) => { return (<ListGroup.Item>{servicio}</ListGroup.Item>) })}</ListGroup></td>
+                                    <td>{desarrollador.Activo = true ? 'Activo' : 'Inactivo'}</td>
                                     <td>
-                                        <Button
-                                            variant="danger"
-                                            //onClick={popProduct}
+                                        <Link
+
+                                            to={'/GestionDesarrolladores'}
+                                            onClick={async () => {
+                                                console.log('Has eliminado : ' + desarrollador.nombre);
+                                                //await eliminarUnDeveloper('lista-desarrolladores', desarrollador.id)
+                                            }}
                                             id={desarrollador.uid}
                                         >
                                             <svg
@@ -75,27 +101,36 @@ export const GestionDesarrolladores = () => {
                                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
                                                 />
                                             </svg>
-                                        </Button>
+                                        </Link>
 
-                                        <Button
-                                            variant="warning"
-                                            //onClick={popProduct}
+                                        {/* <Link
+
+                                            to={'/GestionDesarrolladores'}
                                             id={desarrollador.id}
-                                            className="ms-2"
+                                            className="ms-3"
+                                            onClick={async () => {
+                                                console.log('Se actualizo estado');
+                                                const dato = {
+                                                    imagen: desarrollador.imagen,
+                                                    nombre: desarrollador.nombre,
+                                                    github: desarrollador.github,
+                                                    telefono: desarrollador.telefono,
+                                                    servicios: desarrollador.servicios,
+                                                    Activo: !desarrollador.Activo,
+
+                                                }
+                                                
+                                                console.log(!!desarrollador.Activo);
+                                                //await editarUnServicio('lista-desarrolladores', desarrollador.id, dato)
+                                            }}
                                         >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="16"
-                                                height="16"
-                                                fill="currentColor"
-                                                className="bi bi-pencil-fill"
-                                                viewBox="0 0 16 16"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                                            </svg>
-                                        </Button>
+                                            {
+                                                desarrollador.Active = true ? 
+                                                <DesktopWindowsIcon/> : <DesktopAccessDisabledIcon/>
+                                            }
+                                            
+                                        </Link> */}
+
                                     </td>
                                 </tr>
                             );

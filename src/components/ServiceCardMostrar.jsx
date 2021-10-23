@@ -11,6 +11,7 @@ export const ServiceCardMostrar = ({ tituloServicio, descrip, id, usuario }) => 
                     {
                         descrip
                     }
+                    <hr/>
                     {
                         usuario
                     }
