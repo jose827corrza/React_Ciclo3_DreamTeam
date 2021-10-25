@@ -61,7 +61,7 @@ export const datosUsuario = () => {
 //Login con Google
 export const loginConGoogle = async () => {
   try {
-    debugger
+    
     const respuesta = await signInWithPopup(auth, provider);
     usuario = respuesta.user;
     try{
@@ -351,7 +351,7 @@ export const consultarDatabaseContratosUsuario = async (
   nombreColeccion,
   usr
 ) => {
-  debugger
+  
   try {
     const DBServicios = collection(database, nombreColeccion);
     const q = query(DBServicios, where("email_desarrollador", "==", usr));
@@ -382,7 +382,7 @@ export const consultarDataBaseUsuario = async (
   nombreColeccion,
   email_usuario
 ) => {
-  debugger;
+  
   try {
     const DBServicios = collection(database, nombreColeccion);
     const q = query(DBServicios, where("user", "==", email_usuario));

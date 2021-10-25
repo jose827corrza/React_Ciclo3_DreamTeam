@@ -26,7 +26,7 @@ const CrearContrato = () => {
       console.log("hola")
     };
 
-    fetchData();
+    
   }, []);
 
   const handleChange = (event) => {
