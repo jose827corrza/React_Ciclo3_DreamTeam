@@ -1,16 +1,58 @@
 import { Container, Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import api from "../../api";
 import "./Gestion.css";
+import React, { useState, useEffect } from "react";
 
-const Gestion = ({ productos, setProductos }) => {
-  const deleteProduct = (event) => {
-    const id = event.target.id;
-    api.products.delete(id);
-    console.log(productos);
-    const newProducts = productos.filter((product) => product._id !== id);
-    setProductos([...newProducts]);
+import {
+  usuario,
+  consultarDatabaseAllContratos,
+  consultarDatabaseContratosUsuario,
+  eliminarContrato
+} from "./../../../config/firebase";
+
+const GestionContratos = ({ productos, setProductos }) => {
+  const [contratos, setContratos] = useState([]);
+  const [rol, setRol] = useState([]);
+
+
+  useEffect(() => {
+    //setRol("Admin");
+    console.log(usuario.rol)
+    cargarContratos();
+  }, []);
+
+  
+
+  const cargarContratos = async () => {
+    let listaTemporal=[];
+    if (usuario.rol === "Admin"){
+       listaTemporal = await consultarDatabaseAllContratos(
+        "contratos"
+      );
+      
+    }else{
+       listaTemporal = await consultarDatabaseContratosUsuario(
+        "contratos",
+        usuario.email
+      );
+
+    }
+
+    if (!!listaTemporal) {
+      setContratos(listaTemporal);
+    } else {
+      setContratos([]);
+    }
   };
+
+  const deleteContrato = (event) => {
+    const id = event.target.id;
+    eliminarContrato("contratos",id);
+    alert("Se ha eliminado correctamente el contrato")
+    const newContratos = contratos.filter((product) => product.id !== id);
+    setContratos([...newContratos]);
+  };
+  
 
   return (
     <div>
@@ -19,39 +61,23 @@ const Gestion = ({ productos, setProductos }) => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Descripción</th>
+              <th>id Contrato</th>
+              <th>Nombre Proyecto</th>
+              <th>Nombre Desarrollador</th>
+              <th>Nombre Cliente</th>
+              <th>Fecha inicio</th>
               <th>Precio</th>
-              <th>Imagen</th>
-              <th>Categoria</th>
-              <th>Disponible</th>
-              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
-            {productos.map((producto) => {
+            {contratos.map((producto) => {
               return (
-                <tr key={producto._id}>
-                  <td>{producto.title}</td>
-                  <td>{producto.description}</td>
-                  <td>{producto.price}</td>
-                  <td>
-                    <img
-                      className="t-img"
-                      src={producto.url}
-                      alt={producto.nombre}
-                    />
-                  </td>
-                  <td>{producto.categoria.nombre}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="customCheck1"
-                      checked={producto.disponible}
-                      readOnly
-                    />{" "}
-                  </td>
+                <tr key={producto.id}>
+                  <td>{producto.nombre_proyecto}</td>
+                  <td>{producto.nombre_desarrollador}</td>
+                  <td>{producto.nombre_cliente}</td>
+                  <td>{producto.fecha_inicio_proyecto}</td>
+                  <td>{producto.precio}</td>
                   <td>
                     <Link to={`/Gestion/Edit/${producto._id}`}>
                       <Button variant="warning">
@@ -70,8 +96,8 @@ const Gestion = ({ productos, setProductos }) => {
 
                     <Button
                       variant="danger"
-                      onClick={deleteProduct}
-                      id={producto._id}
+                      onClick={deleteContrato}
+                      id={producto.id}
                       className="ms-2"
                     >
                       <svg
@@ -100,4 +126,4 @@ const Gestion = ({ productos, setProductos }) => {
   );
 };
 
-export default Gestion;
+export default GestionContratos;

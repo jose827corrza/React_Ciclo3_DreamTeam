@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom';
 import { VistaPerfilUsuario } from './components/VistaPerfilUsuario';
 import CrearContrato from './components/contratos/pages/CrearContrato';
+import GestionContratos from './components/contratos/pages/GestionContratos';
 import ECServicios from './components/ECServicios';
 import { auth } from "./config/firebase";
 import { onAuthStateChanged } from "@firebase/auth";
@@ -65,6 +66,9 @@ function App() {
           <Route path="/GestionDesarrolladores" component={GestionDesarrolladores} />
           <Route path="/CrearContrato" exact>
             <CrearContrato />
+          </Route>
+          <Route path="/GestionContratos" exact>
+            <GestionContratos />
           </Route>
 
           <Route exact path="/">

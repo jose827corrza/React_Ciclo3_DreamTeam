@@ -61,8 +61,20 @@ export const datosUsuario = () => {
 //Login con Google
 export const loginConGoogle = async () => {
   try {
+    debugger
     const respuesta = await signInWithPopup(auth, provider);
     usuario = respuesta.user;
+    try{
+      const repsuestaDataBase = await consultarDataBaseUsuario('datos-usuarios',usuario.email)
+      if (repsuestaDataBase.role){
+        usuario.rol=repsuestaDataBase.role
+      }else{
+        usuario.rol="Visit"
+      }
+    }catch (error) {
+      usuario.rol="Visit"
+    }
+    
     console.log(usuario);
   } catch (error) {
     throw new Error(error);
@@ -289,7 +301,109 @@ export const consultarDatabaseTipoIdentificacion = async (nombreColeccion) =>{
     } catch (error) {
         throw new Error(error)
     }
-}
+};
+
+//Anadir contrato
+export const guardarContrato = async (nombreColeccion, data) => {
+  try {
+      const respuesta = await addDoc(collection(database, nombreColeccion), data)
+      console.log(respuesta);
+  } catch (error) {
+      throw new Error(error)
+  }
+};
+
+//Consultar todos los contratos
+export const consultarDatabaseAllContratos = async (nombreColeccion) =>{
+  try {
+      const respuesta = await getDocs(query(collection(database, nombreColeccion)))
+      // console.log(respuesta);
+  
+      const coleccionDatos = respuesta.docs.map((documento) => {
+         //console.log(documento);
+         //console.log(documento.data());
+        const documentoTemporal = {
+          id: documento.id,
+          ...documento.data()
+        }
+         console.log(documentoTemporal);
+        return documentoTemporal
+      })
+  
+      return coleccionDatos
+  } catch (error) {
+      throw new Error(error)
+  }
+};
+
+//Eliminacion contrato
+export const eliminarContrato = async (nombreColeccion, id) => {
+  try {
+      const respuesta = await deleteDoc(doc(database, nombreColeccion, id))
+      console.log(respuesta);
+  } catch (error) {
+      throw new Error(error)
+  }
+};
+
+//Consultar todos los contratos de un usuario
+export const consultarDatabaseContratosUsuario = async (
+  nombreColeccion,
+  usr
+) => {
+  debugger
+  try {
+    const DBServicios = collection(database, nombreColeccion);
+    const q = query(DBServicios, where("email_desarrollador", "==", usr));
+    const respuesta = await getDocs(q);
+    //const respuesta = await getDocs(query(collection(database, nombreColeccion)), where("user", "==", "corredor.jose@fuac.edu.co"))
+    // console.log(respuesta);
+
+    const coleccionDatos = respuesta.docs.map((documento) => {
+      // console.log(documento);
+      //console.log(documento.data());
+      const documentoTemporal = {
+        id: documento.id,
+        ...documento.data(),
+      };
+      // console.log(documentoTemporal);
+      return documentoTemporal;
+    });
+
+    return coleccionDatos;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+
+//Consultar un usuario en particular
+export const consultarDataBaseUsuario = async (
+  nombreColeccion,
+  email_usuario
+) => {
+  debugger;
+  try {
+    const DBServicios = collection(database, nombreColeccion);
+    const q = query(DBServicios, where("user", "==", email_usuario));
+    const respuesta = await getDocs(q);
+
+    const coleccionDatos = respuesta.docs.map((documento) => {
+      // console.log(documento);
+      //console.log(documento.data());
+      const documentoTemporal = {
+        id: documento.id,
+        ...documento.data(),
+      };
+      // console.log(documentoTemporal);
+      return documentoTemporal;
+    });
+;
+    return coleccionDatos[0];
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 //Finalizacion CRUD
 

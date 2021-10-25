@@ -47,9 +47,6 @@ const [superUser, setsuperUser] = useState(false)
             <li className="nav-item">
               <Link className="nav-link" to="/ListaServiciosDeUsuario">Ver Servicios</Link>
             </li>
-            {!!usuario &&<li className="nav-item">
-              <Link className="nav-link" to="/CrearContrato">Crear contrato</Link>
-            </li>}
             {!!usuario &&<li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Usuario
@@ -58,6 +55,17 @@ const [superUser, setsuperUser] = useState(false)
                 <li><Link className="dropdown-item" to={'/ajusteUsuario'}>Ajustes</Link></li>
                 <li><hr className="dropdown-divider" /></li>
                 <li><Link className="dropdown-item" to="" onClick={getOut}>Salir</Link></li>
+              </ul>
+            </li>}
+
+            {!!usuario &&<li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Contratos
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><Link className="dropdown-item" to={'/GestionContratos'}>Ver contratos</Link></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><Link className="dropdown-item" to={'/CrearContrato'}>Crear contrato</Link></li>
               </ul>
             </li>}
 
