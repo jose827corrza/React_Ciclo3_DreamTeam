@@ -176,7 +176,7 @@ export const consultarDatabaseServiciosUsuario = async (
 ) => {
   try {
     const DBServicios = collection(database, nombreColeccion);
-    const q = query(DBServicios, where("user", "==", usr));
+    const q = query(DBServicios, where("estado", "==", true));
     const respuesta = await getDocs(q);
     //const respuesta = await getDocs(query(collection(database, nombreColeccion)), where("user", "==", "corredor.jose@fuac.edu.co"))
     // console.log(respuesta);
@@ -406,4 +406,26 @@ export const consultarDataBaseUsuario = async (
 };
 
 //Finalizacion CRUD
+
+//Obtener datosDev
+export const devDatos = async(nombreColeccion, correoDev) => {
+  try {
+    const DB = collection(database, nombreColeccion)
+    const q = query(DB, where("email", "==", correoDev))
+    const snap = await getDocs(q);
+
+    const document = snap.docs.map((doc) => {
+      const docTemp = {
+        id: doc.id,
+        ...doc.data(),
+      }
+      return docTemp;
+    })
+    console.log(document);
+    return document;
+    
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
